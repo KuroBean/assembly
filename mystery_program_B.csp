@@ -1,0 +1,21 @@
+; Start all data values this time at $1FF
+;  This program will loop through VAR_A number of times and add VAR_A to VAR_B that many times
+;  The program will save the output into OUTPUT at the very end, essentially multiplying LOOP_COUNT times VAR_A
+	.EQU @, $1FF
+INDEX:	.WORD 0
+VAR_A:	.WORD 20
+VAR_B:	.WORD 50
+OUTPUT:	.WORD	0
+
+; Start writing program
+; The first two lines clear the output to make sure it always starts at 0
+	.EQU @, 000
+	LDX# 000
+	STX OUTPUT
+BEGIN_LOOP:	LDA OUTPUT	; What is happening here and why?
+	ADA VAR_B
+	STA OUTPUT
+	ADX# 1
+	CMX VAR_A
+	JLT BEGIN_LOOP
+	HLT

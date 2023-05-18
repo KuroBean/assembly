@@ -1,0 +1,23 @@
+; Put all varaibles starting at $100
+;  This program will loop through VAR_A number of times and add VAR_A to VAR_B that many times
+;  The program will save the output into OUTPUT at the very end, essentially multiplying LOOP_COUNT times VAR_A
+	.EQU @, $100
+INDEX:	.WORD 0
+VAR_A:	.WORD 20
+VAR_B:	.WORD 50
+OUTPUT:	.WORD	0
+
+; Start writing program
+; The first two lines clear the output to make sure it always starts at 0
+	.EQU @, 000
+	LDA# 000
+	STA OUTPUT
+BEGIN_LOOP:	LDA OUTPUT	; What is happening here and why?
+	ADA VAR_B
+	STA OUTPUT
+	LDA INDEX	;  What is happening here and why?
+	ADA# 1
+	STA INDEX
+	CMA VAR_A
+	JLT BEGIN_LOOP
+	HLT

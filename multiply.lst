@@ -1,0 +1,20 @@
+LINE ADDR CONTENTS SOURCE LINE
+  1.              
+  2.              	.EQU @, $100
+  3.  100 000000  INDEX:	.WORD 
+  4.              
+  5.              	; Start of procedure code
+  6.              	.EQU @, 0
+  7.  000 002100  BEGIN:	LDA INDEX
+  8.              ; store to 101, move on
+  9.  001 042100  	STA INDEX
+ 10.  002 200005  	CMA# 005
+ 11.  003 4C2000  	JLE BEGIN
+ 12.              
+ 13.              
+ 14.  004 402005  	JMP END
+ 15.  005 FFFFFF  END:	HLT
+
+                     SYMBOL TABLE CONTENTS
+
+000000 = BEGIN           000005 = END             000100 = INDEX           

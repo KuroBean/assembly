@@ -1,0 +1,50 @@
+;data start at $500 
+
+	.EQU @, $200
+divby3: 	.WORD 0
+divby5: 	.WORD 0
+divbyboth: 	.word 0
+divbynone: 	.word 0
+
+	.EQU @, 000
+	LDX# 000
+BEGIN:	LDA+ $200
+	mod# 015
+	cma# 000 
+	Jeq candivboth
+
+	LDA+ $200
+	mod# 003
+	cma# 000 
+	Jeq candiv3only
+
+	LDA+ $200
+	mod# 005
+	cma# 000 
+	Jeq candiv5only
+
+	Jmp candivnone
+	
+TOINDEXCHECK:	ADX# 001
+	CMX# 500
+	JLE BEGIN
+	JGT END ;CHECK EQUAL TO CASE AND WHAT TO DO ABT THAT
+
+END:	HLT
+
+	.EQU @,030
+candivboth:	inc divbyboth
+	jmp TOINDEXCHECK 
+	
+	.equ @,060
+candiv3only: 	inc divby3
+	jmp TOINDEXCHECK 
+
+
+	.EQU @,090
+candiv5only:	inc divby5
+	JMP TOINDEXCHECK
+
+	.EQU @,120
+candivnone:	inc divbynone
+	JMP TOINDEXCHECK

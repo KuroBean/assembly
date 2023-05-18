@@ -1,0 +1,20 @@
+;Adds one number times another and quits
+;
+; This CUSP procedure will add memory A and B plus 
+; whatever is in memory address 1 plus
+; the number 1
+; Then saves it to C
+;
+	.EQU @, $100
+A:	.WORD $005
+B:	.WORD $006
+	.EQU C, 0
+
+	; Start of procedure code
+	.EQU @, 0
+START:	LDA A
+	ADA B
+	ADA 1	 ;  What does this do compared to below
+	ADA# 1 ;  What does this do compared to above
+	STA C
+	HLT

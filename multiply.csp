@@ -1,0 +1,15 @@
+
+	.EQU @, $100
+INDEX:	.WORD 
+
+	; Start of procedure code
+	.EQU @, 0
+BEGIN:	LDA INDEX
+; store to 101, move on
+	STA INDEX
+	CMA# 005
+	JLE BEGIN
+
+
+	JMP END
+END:	HLT

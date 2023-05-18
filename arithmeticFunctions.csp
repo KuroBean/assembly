@@ -1,0 +1,29 @@
+	.EQU @,$000
+TEMPX:	.WORD 0
+	LDX# 000
+BEGIN:	LDA+ $500
+	PSHA 
+	LDA+ $500
+	PSHA
+	MOD# 015
+	CMA# 000 
+	JEQ ADD
+	;GOTTA DO JLT OR SMTH SOMWEHRE, AN THEN JSR, OR VICE VERSA
+	
+; TSA: transfer one value to antehor, 
+	.EQU @,$50
+ADD:	STX TEMPX
+	TSX 
+	LDA+ 1
+	
+	
+	
+	
+	.EQU @,$70
+MULTIPLY:	
+
+	.EQU @,$90	
+SUBTRACT:	
+
+	.EQU @,$110	
+DIVIDE:  	

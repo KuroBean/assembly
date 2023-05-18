@@ -1,0 +1,58 @@
+LINE ADDR CONTENTS SOURCE LINE
+  1.              ;data start at $500 
+  2.              
+  3.              	.EQU @, $200
+  4.  200 000000  divby3: 	.WORD 0
+  5.  201 000000  divby5: 	.WORD 0
+  6.  202 000000  divbyboth: 	.word 0
+  7.  203 000000  divbynone: 	.word 0
+  8.              
+  9.              	.EQU @, 000
+ 10.  000 010000  	LDX# 000
+ 11.  001 004200  BEGIN:	LDA+ $200
+ 12.  002 1A000F  	mod# 015
+ 13.  003 200000  	cma# 000 
+ 14.  004 48201E  	Jeq candivboth
+ 15.              
+ 16.  005 004200  	LDA+ $200
+ 17.  006 1A0003  	mod# 003
+ 18.  007 200000  	cma# 000 
+ 19.  008 48203C  	Jeq candiv3only
+ 20.              
+ 21.  009 004200  	LDA+ $200
+ 22.  00A 1A0005  	mod# 005
+ 23.  00B 200000  	cma# 000 
+ 24.  00C 48205A  	Jeq candiv5only
+ 25.              
+ 26.  00D 402078  	Jmp candivnone
+ 27.              	
+ 28.  00E 110001  TOINDEXCHECK:	ADX# 001
+ 29.  00F 2101F4  	CMX# 500
+ 30.  010 4C2001  	JLE BEGIN
+ 31.  011 4D2012  	JGT END ;CHECK EQUAL TO CASE AND WHAT TO DO ABT THAT
+ 32.              
+ 33.  012 FFFFFF  END:	HLT
+ 34.              
+ 35.              	.EQU @,030
+ 36.  01E 1B2202  candivboth:	inc divbyboth
+ 37.  01F 40200E  	jmp TOINDEXCHECK 
+ 38.              	
+ 39.              	.equ @,060
+ 40.  03C 1B2200  candiv3only: 	inc divby3
+ 41.  03D 40200E  	jmp TOINDEXCHECK 
+ 42.              
+ 43.              
+ 44.              	.EQU @,090
+ 45.  05A 1B2201  candiv5only:	inc divby5
+ 46.  05B 40200E  	JMP TOINDEXCHECK
+ 47.              
+ 48.              	.EQU @,120
+ 49.  078 1B2203  candivnone:	inc divbynone
+ 50.  079 40200E  	JMP TOINDEXCHECK
+
+                     SYMBOL TABLE CONTENTS
+
+000001 = BEGIN           00003C = CANDIV3ONLY     00005A = CANDIV5ONLY     
+00001E = CANDIVBOTH      000078 = CANDIVNONE      000200 = DIVBY3          
+000201 = DIVBY5          000202 = DIVBYBOTH       000203 = DIVBYNONE       
+000012 = END             00000E = TOINDEXCHECK    

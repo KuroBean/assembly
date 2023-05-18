@@ -1,0 +1,29 @@
+LINE ADDR CONTENTS SOURCE LINE
+  1.              ; Put all varaibles starting at $100
+  2.              ;  This program will loop through VAR_A number of times and add VAR_A to VAR_B that many times
+  3.              ;  The program will save the output into OUTPUT at the very end, essentially multiplying LOOP_COUNT times VAR_A
+  4.              	.EQU @, $100
+  5.  100 000000  INDEX:	.WORD 0
+  6.  101 000014  VAR_A:	.WORD 20
+  7.  102 000032  VAR_B:	.WORD 50
+  8.  103 000000  OUTPUT:	.WORD	0
+  9.              
+ 10.              ; Start writing program
+ 11.              ; The first two lines clear the output to make sure it always starts at 0
+ 12.              	.EQU @, 000
+ 13.  000 000000  	LDA# 000
+ 14.  001 042103  	STA OUTPUT
+ 15.  002 002103  BEGIN_LOOP:	LDA OUTPUT	; What is happening here and why?
+ 16.  003 102102  	ADA VAR_B
+ 17.  004 042103  	STA OUTPUT
+ 18.  005 002100  	LDA INDEX	;  What is happening here and why?
+ 19.  006 100001  	ADA# 1
+ 20.  007 042100  	STA INDEX
+ 21.  008 202101  	CMA VAR_A
+ 22.  009 4A2002  	JLT BEGIN_LOOP
+ 23.  00A FFFFFF  	HLT
+
+                     SYMBOL TABLE CONTENTS
+
+000002 = BEGIN_LOOP      000100 = INDEX           000103 = OUTPUT          
+000101 = VAR_A           000102 = VAR_B           
